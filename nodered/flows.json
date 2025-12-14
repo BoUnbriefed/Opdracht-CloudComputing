@@ -31,7 +31,7 @@
             "7eb2372f90232ca9"
         ],
         "x": 74,
-        "y": 419,
+        "y": 459,
         "w": 812,
         "h": 242
     },
@@ -61,6 +61,34 @@
         "x": 74,
         "y": 719,
         "w": 812,
+        "h": 242
+    },
+    {
+        "id": "368acf8e27b465b7",
+        "type": "group",
+        "z": "66b24bae81c3f51b",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "16c52128e6f31f25",
+            "eb17005020517a4b",
+            "1aa8eb3d32a67dc9",
+            "24d650aae118c55d",
+            "c828bd050fea56de",
+            "0ee97766e3583be4",
+            "81a046a5cc403b96",
+            "dac91424b55e642f"
+        ],
+        "x": 74,
+        "y": 199,
+        "w": 792,
         "h": 242
     },
     {
@@ -206,7 +234,7 @@
         "tab": "85f94bd21c1d9373",
         "order": 1,
         "disp": true,
-        "width": 6,
+        "width": 12,
         "collapse": false,
         "className": ""
     },
@@ -242,7 +270,7 @@
         "z": "66b24bae81c3f51b",
         "g": "a521c3f49974fb3a",
         "name": "",
-        "topic": "sauna",
+        "topic": "sauna/temp",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "aacaec55b7d07fed",
@@ -250,8 +278,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 150,
-        "y": 500,
+        "x": 170,
+        "y": 540,
         "wires": [
             [
                 "215acc765e6258f8",
@@ -276,7 +304,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 350,
-        "y": 460,
+        "y": 500,
         "wires": []
     },
     {
@@ -295,15 +323,15 @@
         "org": "RD",
         "bucket": "sauna",
         "x": 360,
-        "y": 500,
+        "y": 540,
         "wires": []
     },
     {
         "id": "ee337a6354fa50af",
         "type": "mqtt out",
         "z": "66b24bae81c3f51b",
-        "name": "MQTT-data",
-        "topic": "sauna",
+        "name": "Sauna MQTT-data temp",
+        "topic": "sauna/temp",
         "qos": "",
         "retain": "",
         "respTopic": "",
@@ -312,21 +340,21 @@
         "correl": "",
         "expiry": "",
         "broker": "aacaec55b7d07fed",
-        "x": 550,
-        "y": 120,
+        "x": 630,
+        "y": 80,
         "wires": []
     },
     {
         "id": "c0f8a1d4b71ca844",
         "type": "random",
         "z": "66b24bae81c3f51b",
-        "name": "datafeeder sauna",
+        "name": "datafeeder Sauna temp",
         "low": "15",
         "high": "50",
         "inte": "true",
         "property": "payload",
-        "x": 370,
-        "y": 120,
+        "x": 390,
+        "y": 80,
         "wires": [
             [
                 "ee337a6354fa50af"
@@ -350,12 +378,13 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 90,
-        "y": 160,
+        "x": 150,
+        "y": 120,
         "wires": [
             [
                 "c0f8a1d4b71ca844",
-                "48eb827a61f11f0a"
+                "48eb827a61f11f0a",
+                "d641c75477bef3b2"
             ]
         ]
     },
@@ -366,8 +395,8 @@
         "g": "a521c3f49974fb3a",
         "group": "e97c5015f566c045",
         "order": 3,
-        "width": 0,
-        "height": 0,
+        "width": 6,
+        "height": 1,
         "name": "",
         "label": "Average temperature in last 24h",
         "format": "{{msg.payload | number:1}}",
@@ -378,7 +407,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 730,
-        "y": 580,
+        "y": 620,
         "wires": []
     },
     {
@@ -390,7 +419,7 @@
         "amount": "500",
         "weight": "cumulative",
         "x": 420,
-        "y": 580,
+        "y": 620,
         "wires": [
             [
                 "fbc327a09603b1d7",
@@ -414,7 +443,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 680,
-        "y": 540,
+        "y": 580,
         "wires": []
     },
     {
@@ -424,9 +453,9 @@
         "g": "a521c3f49974fb3a",
         "name": "",
         "group": "e97c5015f566c045",
-        "order": 4,
-        "width": 0,
-        "height": 0,
+        "order": 5,
+        "width": 6,
+        "height": 4,
         "label": "Average temperatures",
         "chartType": "line",
         "legend": "false",
@@ -457,7 +486,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 700,
-        "y": 620,
+        "y": 660,
         "wires": [
             []
         ]
@@ -466,7 +495,7 @@
         "id": "555ff102c03375f2",
         "type": "mqtt out",
         "z": "66b24bae81c3f51b",
-        "name": "MQTT-data",
+        "name": "Kitchen MQTT-data temp ",
         "topic": "kitchen",
         "qos": "",
         "retain": "",
@@ -476,7 +505,7 @@
         "correl": "",
         "expiry": "",
         "broker": "aacaec55b7d07fed",
-        "x": 550,
+        "x": 630,
         "y": 160,
         "wires": []
     },
@@ -484,12 +513,12 @@
         "id": "48eb827a61f11f0a",
         "type": "random",
         "z": "66b24bae81c3f51b",
-        "name": "datafeeder Kitchen",
+        "name": "datafeeder Kitchen temp",
         "low": "0",
         "high": "50",
         "inte": "true",
         "property": "payload",
-        "x": 370,
+        "x": 390,
         "y": 160,
         "wires": [
             [
@@ -594,7 +623,7 @@
         "z": "66b24bae81c3f51b",
         "g": "cc12ce3f4993734c",
         "group": "e6751f159d2c58f3",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -653,7 +682,7 @@
         "g": "cc12ce3f4993734c",
         "name": "",
         "group": "e6751f159d2c58f3",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "label": "Average temperatures",
@@ -699,8 +728,8 @@
         "name": "Temp",
         "group": "e97c5015f566c045",
         "order": 1,
-        "width": 0,
-        "height": 0,
+        "width": 6,
+        "height": 5,
         "gtype": "donut",
         "title": "",
         "label": "° Celsius",
@@ -717,7 +746,236 @@
         "diff": false,
         "className": "",
         "x": 330,
-        "y": 540,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "141a50582da1696d",
+        "type": "mqtt out",
+        "z": "66b24bae81c3f51b",
+        "name": "Sauna MQTT-data moist",
+        "topic": "sauna/moist",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aacaec55b7d07fed",
+        "x": 630,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d641c75477bef3b2",
+        "type": "random",
+        "z": "66b24bae81c3f51b",
+        "name": "datafeeder Sauna moist",
+        "low": "0",
+        "high": "100",
+        "inte": "true",
+        "property": "payload",
+        "x": 390,
+        "y": 120,
+        "wires": [
+            [
+                "141a50582da1696d"
+            ]
+        ]
+    },
+    {
+        "id": "16c52128e6f31f25",
+        "type": "mqtt in",
+        "z": "66b24bae81c3f51b",
+        "g": "368acf8e27b465b7",
+        "name": "",
+        "topic": "sauna/moist",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "aacaec55b7d07fed",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 280,
+        "wires": [
+            [
+                "eb17005020517a4b",
+                "1aa8eb3d32a67dc9",
+                "c828bd050fea56de",
+                "dac91424b55e642f"
+            ]
+        ]
+    },
+    {
+        "id": "eb17005020517a4b",
+        "type": "debug",
+        "z": "66b24bae81c3f51b",
+        "g": "368acf8e27b465b7",
+        "name": "Sauna Moist",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "1aa8eb3d32a67dc9",
+        "type": "influxdb out",
+        "z": "66b24bae81c3f51b",
+        "g": "368acf8e27b465b7",
+        "influxdb": "7ddae20f9bc8e51d",
+        "name": "DB write sauna",
+        "measurement": "sauna-moist",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "RD",
+        "bucket": "sauna",
+        "x": 360,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "24d650aae118c55d",
+        "type": "ui_text",
+        "z": "66b24bae81c3f51b",
+        "g": "368acf8e27b465b7",
+        "group": "e97c5015f566c045",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "Average moisture in last 24h",
+        "format": "{{msg.payload | number:1}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 720,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "c828bd050fea56de",
+        "type": "moving-average",
+        "z": "66b24bae81c3f51b",
+        "g": "368acf8e27b465b7",
+        "name": "",
+        "amount": "500",
+        "weight": "cumulative",
+        "x": 420,
+        "y": 360,
+        "wires": [
+            [
+                "0ee97766e3583be4",
+                "24d650aae118c55d",
+                "81a046a5cc403b96"
+            ]
+        ]
+    },
+    {
+        "id": "0ee97766e3583be4",
+        "type": "debug",
+        "z": "66b24bae81c3f51b",
+        "g": "368acf8e27b465b7",
+        "name": "Sauna moist averages",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "81a046a5cc403b96",
+        "type": "ui_chart",
+        "z": "66b24bae81c3f51b",
+        "g": "368acf8e27b465b7",
+        "name": "",
+        "group": "e97c5015f566c045",
+        "order": 6,
+        "width": 6,
+        "height": 4,
+        "label": "Average moisture",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 690,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dac91424b55e642f",
+        "type": "ui_gauge",
+        "z": "66b24bae81c3f51b",
+        "g": "368acf8e27b465b7",
+        "name": "Moist",
+        "group": "e97c5015f566c045",
+        "order": 2,
+        "width": 6,
+        "height": 5,
+        "gtype": "wave",
+        "title": "",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "25",
+        "seg2": "75",
+        "diff": false,
+        "className": "",
+        "x": 330,
+        "y": 320,
         "wires": []
     }
 ]
