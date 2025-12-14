@@ -1,0 +1,31 @@
+name: CI - Validate Ansible & Docker Compose
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      - name: Install Ansible collections
+        run: |
+          ansible-galaxy collection install community.docker
+
+      - name: Validate Ansible playbook syntax
+        run: |
+          ansible-playbook ansible/playbook.yml --syntax-check
+
+      - name: Validate Docker Compose file
+        run: |
+          docker compose -f docker-compose.yml config
