@@ -8,6 +8,62 @@
         "env": []
     },
     {
+        "id": "a521c3f49974fb3a",
+        "type": "group",
+        "z": "66b24bae81c3f51b",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "f84a2327cb54d163",
+            "215acc765e6258f8",
+            "2c51c7be6bd751d8",
+            "3c448c59a1d0d9fe",
+            "1a142243f5269c38",
+            "fbc327a09603b1d7",
+            "d7627eae81ede94b",
+            "7eb2372f90232ca9"
+        ],
+        "x": 74,
+        "y": 419,
+        "w": 812,
+        "h": 242
+    },
+    {
+        "id": "cc12ce3f4993734c",
+        "type": "group",
+        "z": "66b24bae81c3f51b",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "a6bcd01f4bad837d",
+            "94a23b77c4160514",
+            "afa378dd1873031e",
+            "0fa84790955b3571",
+            "f85c21a56031ffa4",
+            "f2333d993ee023cf",
+            "09ed1214adf5657f",
+            "6950090f7adbbe96"
+        ],
+        "x": 74,
+        "y": 719,
+        "w": 812,
+        "h": 242
+    },
+    {
         "id": "aacaec55b7d07fed",
         "type": "mqtt-broker",
         "name": "",
@@ -170,9 +226,21 @@
         "rejectUnauthorized": true
     },
     {
+        "id": "e6751f159d2c58f3",
+        "type": "ui_group",
+        "name": "Kitchen",
+        "tab": "85f94bd21c1d9373",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "f84a2327cb54d163",
         "type": "mqtt in",
         "z": "66b24bae81c3f51b",
+        "g": "a521c3f49974fb3a",
         "name": "",
         "topic": "sauna",
         "qos": "2",
@@ -182,13 +250,13 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 390,
-        "y": 360,
+        "x": 150,
+        "y": 500,
         "wires": [
             [
                 "215acc765e6258f8",
-                "52c4159d5aa65dc6",
                 "2c51c7be6bd751d8",
+                "1a142243f5269c38",
                 "7eb2372f90232ca9"
             ]
         ]
@@ -197,7 +265,8 @@
         "id": "215acc765e6258f8",
         "type": "debug",
         "z": "66b24bae81c3f51b",
-        "name": "debug 1",
+        "g": "a521c3f49974fb3a",
+        "name": "Sauna Temp",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -206,47 +275,27 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 580,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "52c4159d5aa65dc6",
-        "type": "ui_text",
-        "z": "66b24bae81c3f51b",
-        "group": "e97c5015f566c045",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Room Temperature",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 610,
-        "y": 360,
+        "x": 350,
+        "y": 460,
         "wires": []
     },
     {
         "id": "2c51c7be6bd751d8",
         "type": "influxdb out",
         "z": "66b24bae81c3f51b",
+        "g": "a521c3f49974fb3a",
         "influxdb": "7ddae20f9bc8e51d",
-        "name": "",
-        "measurement": "mqtt_messages",
+        "name": "DB write sauna",
+        "measurement": "sauna-temp",
         "precision": "",
         "retentionPolicy": "",
         "database": "database",
         "precisionV18FluxV20": "ms",
         "retentionPolicyV18Flux": "",
         "org": "RD",
-        "bucket": "mqttdata",
-        "x": 650,
-        "y": 400,
+        "bucket": "sauna",
+        "x": 360,
+        "y": 500,
         "wires": []
     },
     {
@@ -263,8 +312,8 @@
         "correl": "",
         "expiry": "",
         "broker": "aacaec55b7d07fed",
-        "x": 590,
-        "y": 260,
+        "x": 550,
+        "y": 120,
         "wires": []
     },
     {
@@ -276,8 +325,8 @@
         "high": "50",
         "inte": "true",
         "property": "payload",
-        "x": 410,
-        "y": 260,
+        "x": 370,
+        "y": 120,
         "wires": [
             [
                 "ee337a6354fa50af"
@@ -285,9 +334,368 @@
         ]
     },
     {
+        "id": "1eef8612b2584709",
+        "type": "inject",
+        "z": "66b24bae81c3f51b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "c0f8a1d4b71ca844",
+                "48eb827a61f11f0a"
+            ]
+        ]
+    },
+    {
+        "id": "3c448c59a1d0d9fe",
+        "type": "ui_text",
+        "z": "66b24bae81c3f51b",
+        "g": "a521c3f49974fb3a",
+        "group": "e97c5015f566c045",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Average temperature in last 24h",
+        "format": "{{msg.payload | number:1}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 730,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "1a142243f5269c38",
+        "type": "moving-average",
+        "z": "66b24bae81c3f51b",
+        "g": "a521c3f49974fb3a",
+        "name": "",
+        "amount": "500",
+        "weight": "cumulative",
+        "x": 420,
+        "y": 580,
+        "wires": [
+            [
+                "fbc327a09603b1d7",
+                "3c448c59a1d0d9fe",
+                "d7627eae81ede94b"
+            ]
+        ]
+    },
+    {
+        "id": "fbc327a09603b1d7",
+        "type": "debug",
+        "z": "66b24bae81c3f51b",
+        "g": "a521c3f49974fb3a",
+        "name": "Sauna averages",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "d7627eae81ede94b",
+        "type": "ui_chart",
+        "z": "66b24bae81c3f51b",
+        "g": "a521c3f49974fb3a",
+        "name": "",
+        "group": "e97c5015f566c045",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Average temperatures",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "50",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 700,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "555ff102c03375f2",
+        "type": "mqtt out",
+        "z": "66b24bae81c3f51b",
+        "name": "MQTT-data",
+        "topic": "kitchen",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aacaec55b7d07fed",
+        "x": 550,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "48eb827a61f11f0a",
+        "type": "random",
+        "z": "66b24bae81c3f51b",
+        "name": "datafeeder Kitchen",
+        "low": "0",
+        "high": "50",
+        "inte": "true",
+        "property": "payload",
+        "x": 370,
+        "y": 160,
+        "wires": [
+            [
+                "555ff102c03375f2"
+            ]
+        ]
+    },
+    {
+        "id": "a6bcd01f4bad837d",
+        "type": "mqtt in",
+        "z": "66b24bae81c3f51b",
+        "g": "cc12ce3f4993734c",
+        "name": "",
+        "topic": "kitchen",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "aacaec55b7d07fed",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 800,
+        "wires": [
+            [
+                "94a23b77c4160514",
+                "afa378dd1873031e",
+                "0fa84790955b3571",
+                "f2333d993ee023cf"
+            ]
+        ]
+    },
+    {
+        "id": "94a23b77c4160514",
+        "type": "debug",
+        "z": "66b24bae81c3f51b",
+        "g": "cc12ce3f4993734c",
+        "name": "Kitchen Temp",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "afa378dd1873031e",
+        "type": "influxdb out",
+        "z": "66b24bae81c3f51b",
+        "g": "cc12ce3f4993734c",
+        "influxdb": "7ddae20f9bc8e51d",
+        "name": "DB write kitchen",
+        "measurement": "kitchen-temp",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "RD",
+        "bucket": "kitchen",
+        "x": 360,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "0fa84790955b3571",
+        "type": "ui_gauge",
+        "z": "66b24bae81c3f51b",
+        "g": "cc12ce3f4993734c",
+        "name": "Temp",
+        "group": "e6751f159d2c58f3",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "",
+        "label": "° Celsius",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "25",
+        "seg2": "75",
+        "diff": false,
+        "className": "",
+        "x": 330,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "f85c21a56031ffa4",
+        "type": "ui_text",
+        "z": "66b24bae81c3f51b",
+        "g": "cc12ce3f4993734c",
+        "group": "e6751f159d2c58f3",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Average temperature in last 24h",
+        "format": "{{msg.payload | number:1}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 730,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "f2333d993ee023cf",
+        "type": "moving-average",
+        "z": "66b24bae81c3f51b",
+        "g": "cc12ce3f4993734c",
+        "name": "",
+        "amount": "500",
+        "weight": "cumulative",
+        "x": 420,
+        "y": 880,
+        "wires": [
+            [
+                "09ed1214adf5657f",
+                "f85c21a56031ffa4",
+                "6950090f7adbbe96"
+            ]
+        ]
+    },
+    {
+        "id": "09ed1214adf5657f",
+        "type": "debug",
+        "z": "66b24bae81c3f51b",
+        "g": "cc12ce3f4993734c",
+        "name": "Kitchen averages",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "6950090f7adbbe96",
+        "type": "ui_chart",
+        "z": "66b24bae81c3f51b",
+        "g": "cc12ce3f4993734c",
+        "name": "",
+        "group": "e6751f159d2c58f3",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Average temperatures",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "50",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 700,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "7eb2372f90232ca9",
         "type": "ui_gauge",
         "z": "66b24bae81c3f51b",
+        "g": "a521c3f49974fb3a",
         "name": "Temp",
         "group": "e97c5015f566c045",
         "order": 1,
@@ -308,33 +716,8 @@
         "seg2": "75",
         "diff": false,
         "className": "",
-        "x": 570,
-        "y": 440,
+        "x": 330,
+        "y": 540,
         "wires": []
-    },
-    {
-        "id": "1eef8612b2584709",
-        "type": "inject",
-        "z": "66b24bae81c3f51b",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "10",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 230,
-        "y": 260,
-        "wires": [
-            [
-                "c0f8a1d4b71ca844"
-            ]
-        ]
     }
 ]

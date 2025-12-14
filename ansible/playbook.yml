@@ -6,6 +6,18 @@
     project_path: /mnt/c/Users/robin/Documents/Vives_Elec-ICT/Cloud_Computing/Project
 
   tasks:
+    - name: Copy Mosquitto config
+      copy:
+        src: "{{ windows_project_path }}/mqtt/config/"
+        dest: "{{ project_dir }}/mqtt/config/"
+        mode: '0644'
+    - name: Fix Mosquitto permissions
+      file:
+        path: "{{ project_dir }}/mqtt"
+        owner: 1883
+        group: 1883
+        recurse: yes
+
     # -----------------------------
     # Docker installation (safe)
     # -----------------------------
