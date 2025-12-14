@@ -1,0 +1,22 @@
+# -----------------------
+# Docker runtime data
+# -----------------------
+mosquitto/data/
+mosquitto/log/
+
+influxdb/data/
+
+nodered/node_modules/
+nodered/.npm/
+nodered/.config.*
+nodered/*.backup
+
+# Node-RED flows credentials (secrets)
+nodered/flows_cred.json
+
+# Logs
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db

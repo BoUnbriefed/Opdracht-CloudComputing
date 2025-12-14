@@ -1,0 +1,76 @@
+- name: Deploy MQTT + Node-RED stack
+  hosts: local
+  become: false
+
+  vars:
+    project_path: /mnt/c/Users/robin/Documents/Vives_Elec-ICT/Cloud_Computing/Project
+
+  tasks:
+    # -----------------------------
+    # Docker installation (safe)
+    # -----------------------------
+    - name: Check if Docker is installed
+      command: docker --version
+      register: docker_check
+      ignore_errors: true
+      changed_when: false
+
+    - name: Install Docker on Linux if missing
+      when: docker_check.failed
+      block:
+
+        - name: Install required packages
+          apt:
+            name:
+              - ca-certificates
+              - curl
+              - gnupg
+              - lsb-release
+            update_cache: yes
+
+        - name: Add Docker GPG key
+          shell: |
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+            gpg --dearmor -o /usr/share/keyrings/docker.gpg
+          args:
+            creates: /usr/share/keyrings/docker.gpg
+
+        - name: Add Docker repository
+          shell: |
+            echo \
+              "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] \
+              https://download.docker.com/linux/ubuntu \
+              $(lsb_release -cs) stable" \
+              > /etc/apt/sources.list.d/docker.list
+          args:
+            creates: /etc/apt/sources.list.d/docker.list
+
+        - name: Install Docker Engine and plugins
+          apt:
+            name:
+              - docker-ce
+              - docker-ce-cli
+              - containerd.io
+              - docker-buildx-plugin
+              - docker-compose-plugin
+            update_cache: yes
+
+        - name: Add current user to docker group
+          user:
+            name: "{{ ansible_user_id }}"
+            groups: docker
+            append: yes
+
+    - name: Ensure project directory exists
+      file:
+        path: ~/mqtt-nodered
+        state: directory
+
+    - name: Copy docker-compose file
+      copy:
+        src: files/docker-compose.yml
+        dest: ~/mqtt-nodered/docker-compose.yml
+
+    - name: Start Docker stack
+      community.docker.docker_compose_v2:
+        project_src: /mnt/c/Users/robin/Documents/Vives_Elec-ICT/Cloud_Computing/Project

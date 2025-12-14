@@ -1,0 +1,340 @@
+[
+    {
+        "id": "66b24bae81c3f51b",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "aacaec55b7d07fed",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mosquitto",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "85f94bd21c1d9373",
+        "type": "ui_tab",
+        "name": "Temperature monitor",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "915b5638e3ac7e1c",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "e97c5015f566c045",
+        "type": "ui_group",
+        "name": "Sauna",
+        "tab": "85f94bd21c1d9373",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7ddae20f9bc8e51d",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "influxDB",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://influxdb:8086",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "f84a2327cb54d163",
+        "type": "mqtt in",
+        "z": "66b24bae81c3f51b",
+        "name": "",
+        "topic": "sauna",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "aacaec55b7d07fed",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 390,
+        "y": 360,
+        "wires": [
+            [
+                "215acc765e6258f8",
+                "52c4159d5aa65dc6",
+                "2c51c7be6bd751d8",
+                "7eb2372f90232ca9"
+            ]
+        ]
+    },
+    {
+        "id": "215acc765e6258f8",
+        "type": "debug",
+        "z": "66b24bae81c3f51b",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "52c4159d5aa65dc6",
+        "type": "ui_text",
+        "z": "66b24bae81c3f51b",
+        "group": "e97c5015f566c045",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Room Temperature",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 610,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2c51c7be6bd751d8",
+        "type": "influxdb out",
+        "z": "66b24bae81c3f51b",
+        "influxdb": "7ddae20f9bc8e51d",
+        "name": "",
+        "measurement": "mqtt_messages",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "RD",
+        "bucket": "mqttdata",
+        "x": 650,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ee337a6354fa50af",
+        "type": "mqtt out",
+        "z": "66b24bae81c3f51b",
+        "name": "MQTT-data",
+        "topic": "sauna",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aacaec55b7d07fed",
+        "x": 590,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "c0f8a1d4b71ca844",
+        "type": "random",
+        "z": "66b24bae81c3f51b",
+        "name": "datafeeder sauna",
+        "low": "15",
+        "high": "50",
+        "inte": "true",
+        "property": "payload",
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "ee337a6354fa50af"
+            ]
+        ]
+    },
+    {
+        "id": "7eb2372f90232ca9",
+        "type": "ui_gauge",
+        "z": "66b24bae81c3f51b",
+        "name": "Temp",
+        "group": "e97c5015f566c045",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "",
+        "label": "° Celsius",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "25",
+        "seg2": "75",
+        "diff": false,
+        "className": "",
+        "x": 570,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "1eef8612b2584709",
+        "type": "inject",
+        "z": "66b24bae81c3f51b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 230,
+        "y": 260,
+        "wires": [
+            [
+                "c0f8a1d4b71ca844"
+            ]
+        ]
+    }
+]

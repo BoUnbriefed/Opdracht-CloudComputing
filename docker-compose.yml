@@ -1,0 +1,70 @@
+
+services:
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--api.dashboard=true"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/config:/etc/traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.localhost`)"
+      - "traefik.http.routers.traefik.service=api@internal"
+
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mqtt/config:/mosquitto/config
+      - ./mqtt/data:/mosquitto/data
+      - ./mqtt/log:/mosquitto/log
+
+  nodered:
+    image: nodered/node-red
+    container_name: nodered
+    volumes:
+      - ./nodered:/data
+    depends_on:
+      - mosquitto
+      - influxdb
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nodered.rule=Host(`nodered.localhost`)"
+      - "traefik.http.services.nodered.loadbalancer.server.port=1880"
+
+
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb2
+      - ./influxdb/config:/etc/influxdb2
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.influxdb.rule=Host(`influxdb.localhost`)"
+      - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.localhost`)"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+
+volumes:
+  portainer_data:
